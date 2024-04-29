@@ -1,4 +1,6 @@
 import streamlit as st
+import sys
+print(sys.executable)
 import psycopg2
 
 # Connect to the PostgreSQL database
