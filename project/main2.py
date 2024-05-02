@@ -5,6 +5,7 @@ import psycopg2
 session_log = False
 
 def authenticate(username, password):
+    conn=None
     try:
         # Connect to the PostgreSQL database
         conn = psycopg2.connect(
