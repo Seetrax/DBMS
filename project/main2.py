@@ -1,6 +1,8 @@
 import streamlit as st
 import psycopg2
-from streamlit.state.session_state import SessionState
+
+
+session_log = False
 
 def authenticate(username, password):
     try:
@@ -28,20 +30,21 @@ def get_all_posts(conn):
 
 def main():
     st.title("DBMS Database Login")
-    session_state = SessionState.get(is_authenticated=False)
     # Input fields for username and password
-    
-
+    global session_log
     # Login button
-    if not session_state.is_authenticated:
+    if not session_log:
         username = st.text_input("Username")
         password = st.text_input("Password", type="password")
         if st.button("Login"):
             conn = authenticate(username, password)
             if conn:
-                session_state.is_authenticated = True
+                session_log = True
 
-    if session_state.is_authenticated:
+    if session_log:
+        st.sidebar.header("Menu")
+        if st.sidebar.button("LOGIN"):
+            st.experimental_rerun()
         st.header("Home")
         conn = authenticate(username, password)
         if conn:
